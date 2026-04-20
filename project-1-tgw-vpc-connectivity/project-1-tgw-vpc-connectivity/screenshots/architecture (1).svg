@@ -1,0 +1,126 @@
+<svg width="100%" viewBox="0 0 680 560" xmlns="http://www.w3.org/2000/svg">
+<title>Project 1 — VPC to VPC via Transit Gateway</title>
+<desc>Two VPCs connected via Transit Gateway. VPC-A simulates AWS cloud, VPC-B simulates on-premises network. EC2 instances in each VPC communicate bidirectionally through the Transit Gateway hub.</desc>
+
+<style>
+  text { font-family: Arial, sans-serif; fill: #1a1a1a; }
+  .th { font-size: 14px; font-weight: 600; }
+  .ts { font-size: 12px; font-weight: 400; fill: #444; }
+  .region-border { fill: none; stroke: #aaa; stroke-dasharray: 6 4; stroke-width: 1; }
+
+  .vpc-a-outer { fill: #E6F1FB; stroke: #185FA5; stroke-width: 1; }
+  .vpc-b-outer { fill: #FAECE7; stroke: #993C1D; stroke-width: 1; }
+  .tgw-box     { fill: #EEEDFE; stroke: #534AB7; stroke-width: 1; }
+  .igw-a       { fill: #E1F5EE; stroke: #0F6E56; stroke-width: 1; }
+  .igw-b       { fill: #FAEEDA; stroke: #854F0B; stroke-width: 1; }
+  .subnet-a    { fill: #E1F5EE; stroke: #0F6E56; stroke-width: 1; }
+  .subnet-b    { fill: #FAEEDA; stroke: #854F0B; stroke-width: 1; }
+  .rt-box      { fill: #F1EFE8; stroke: #5F5E5A; stroke-width: 1; }
+  .ec2-a       { fill: #B5D4F4; stroke: #185FA5; stroke-width: 1; }
+  .ec2-b       { fill: #F5C4B3; stroke: #993C1D; stroke-width: 1; }
+
+  .legend-teal   { fill: #E1F5EE; stroke: #0F6E56; stroke-width: 1; }
+  .legend-coral  { fill: #FAECE7; stroke: #993C1D; stroke-width: 1; }
+  .legend-purple { fill: #EEEDFE; stroke: #534AB7; stroke-width: 1; }
+</style>
+
+<defs>
+  <marker id="arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+    <path d="M2 1L8 5L2 9" fill="none" stroke="#534AB7" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+  </marker>
+  <marker id="arrow-green" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+    <path d="M2 1L8 5L2 9" fill="none" stroke="#1D9E75" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+  </marker>
+  <marker id="arrow-coral" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+    <path d="M2 1L8 5L2 9" fill="none" stroke="#D85A30" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+  </marker>
+</defs>
+
+<!-- AWS Region border -->
+<rect x="20" y="30" width="640" height="460" rx="20" class="region-border"/>
+<text class="ts" x="340" y="22" text-anchor="middle">AWS region — us-east-1</text>
+
+<!-- VPC-A outer -->
+<rect x="40" y="50" width="240" height="380" rx="16" class="vpc-a-outer"/>
+<text class="th" x="160" y="78" text-anchor="middle">VPC-A-Cloud</text>
+<text class="ts" x="160" y="96" text-anchor="middle">10.0.0.0/16</text>
+
+<!-- IGW-A -->
+<rect x="64" y="110" width="192" height="36" rx="8" class="igw-a"/>
+<text class="th" x="160" y="128" text-anchor="middle" style="fill:#085041">IGW-VPC-A</text>
+
+<!-- Subnet A -->
+<rect x="64" y="160" width="192" height="44" rx="8" class="subnet-a"/>
+<text class="th" x="160" y="178" text-anchor="middle" style="fill:#085041">subnet-A-public</text>
+<text class="ts" x="160" y="196" text-anchor="middle" style="fill:#0F6E56">10.0.1.0/24</text>
+
+<!-- Route table A -->
+<rect x="64" y="218" width="192" height="56" rx="8" class="rt-box"/>
+<text class="th" x="160" y="236" text-anchor="middle" style="fill:#2C2C2A">Route table</text>
+<text class="ts" x="160" y="254" text-anchor="middle">192.168.0.0/16 → TGW</text>
+<text class="ts" x="160" y="268" text-anchor="middle">0.0.0.0/0 → IGW</text>
+
+<!-- EC2-A -->
+<rect x="64" y="288" width="192" height="110" rx="8" class="ec2-a"/>
+<text class="th" x="160" y="314" text-anchor="middle" style="fill:#0C447C">EC2-A-Cloud</text>
+<text class="ts" x="160" y="334" text-anchor="middle" style="fill:#185FA5">10.0.1.x</text>
+<text class="ts" x="160" y="352" text-anchor="middle" style="fill:#185FA5">Amazon Linux 2023</text>
+<text class="ts" x="160" y="370" text-anchor="middle" style="fill:#185FA5">sg: ec2-A-sg</text>
+
+<!-- VPC-B outer -->
+<rect x="400" y="50" width="240" height="380" rx="16" class="vpc-b-outer"/>
+<text class="th" x="520" y="78" text-anchor="middle" style="fill:#4A1B0C">VPC-B-OnPrem</text>
+<text class="ts" x="520" y="96" text-anchor="middle" style="fill:#993C1D">192.168.0.0/16</text>
+
+<!-- IGW-B -->
+<rect x="424" y="110" width="192" height="36" rx="8" class="igw-b"/>
+<text class="th" x="520" y="128" text-anchor="middle" style="fill:#633806">IGW-VPC-B</text>
+
+<!-- Subnet B -->
+<rect x="424" y="160" width="192" height="44" rx="8" class="subnet-b"/>
+<text class="th" x="520" y="178" text-anchor="middle" style="fill:#633806">subnet-B-onprem</text>
+<text class="ts" x="520" y="196" text-anchor="middle" style="fill:#854F0B">192.168.1.0/24</text>
+
+<!-- Route table B -->
+<rect x="424" y="218" width="192" height="56" rx="8" class="rt-box"/>
+<text class="th" x="520" y="236" text-anchor="middle" style="fill:#2C2C2A">Route table</text>
+<text class="ts" x="520" y="254" text-anchor="middle">10.0.0.0/16 → TGW</text>
+<text class="ts" x="520" y="268" text-anchor="middle">0.0.0.0/0 → IGW</text>
+
+<!-- EC2-B -->
+<rect x="424" y="288" width="192" height="110" rx="8" class="ec2-b"/>
+<text class="th" x="520" y="314" text-anchor="middle" style="fill:#4A1B0C">EC2-B-OnPrem</text>
+<text class="ts" x="520" y="334" text-anchor="middle" style="fill:#993C1D">192.168.1.x</text>
+<text class="ts" x="520" y="352" text-anchor="middle" style="fill:#993C1D">Amazon Linux 2023</text>
+<text class="ts" x="520" y="370" text-anchor="middle" style="fill:#993C1D">sg: ec2-B-sg</text>
+
+<!-- Transit Gateway -->
+<rect x="276" y="150" width="128" height="100" rx="12" class="tgw-box"/>
+<text class="th" x="340" y="186" text-anchor="middle" style="fill:#26215C">Transit</text>
+<text class="th" x="340" y="206" text-anchor="middle" style="fill:#26215C">Gateway</text>
+<text class="ts" x="340" y="226" text-anchor="middle" style="fill:#534AB7">TGW-Project1</text>
+
+<!-- Attachment arrows -->
+<line x1="280" y1="200" x2="258" y2="200" stroke="#534AB7" stroke-width="1.5" marker-end="url(#arrow)"/>
+<line x1="404" y1="200" x2="426" y2="200" stroke="#534AB7" stroke-width="1.5" marker-end="url(#arrow)"/>
+<text class="ts" x="269" y="190" text-anchor="middle" style="fill:#534AB7">attach-VPC-A</text>
+<text class="ts" x="411" y="190" text-anchor="middle" style="fill:#534AB7">attach-VPC-B</text>
+
+<!-- Ping arrows -->
+<line x1="258" y1="428" x2="422" y2="428" stroke="#1D9E75" stroke-width="1.5" marker-end="url(#arrow-green)"/>
+<line x1="422" y1="448" x2="258" y2="448" stroke="#D85A30" stroke-width="1.5" marker-end="url(#arrow-coral)"/>
+<text class="ts" x="160" y="426" text-anchor="middle" style="fill:#1D9E75">ping 192.168.1.x</text>
+<text class="ts" x="520" y="426" text-anchor="middle" style="fill:#1D9E75">replies OK</text>
+<text class="ts" x="160" y="450" text-anchor="middle" style="fill:#D85A30">replies OK</text>
+<text class="ts" x="520" y="450" text-anchor="middle" style="fill:#D85A30">ping 10.0.1.x</text>
+
+<!-- Legend -->
+<rect x="40" y="500" width="12" height="12" rx="2" class="legend-teal"/>
+<text class="ts" x="58" y="511">VPC-A resources</text>
+<rect x="170" y="500" width="12" height="12" rx="2" class="legend-coral"/>
+<text class="ts" x="188" y="511">VPC-B resources</text>
+<rect x="300" y="500" width="12" height="12" rx="2" class="legend-purple"/>
+<text class="ts" x="318" y="511">Transit Gateway</text>
+<line x1="420" y1="506" x2="444" y2="506" stroke="#1D9E75" stroke-width="1.5" marker-end="url(#arrow-green)"/>
+<text class="ts" x="450" y="511">Ping success</text>
+</svg>
