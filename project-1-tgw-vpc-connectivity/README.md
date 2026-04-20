@@ -10,7 +10,7 @@ or home office network. Both VPCs are connected through a central Transit Gatewa
 allowing EC2 instances in each VPC to communicate with each other bidirectionally.
 
 ## Architecture
-![Architecture](screenshots/architecture.svg)  
+ 
 ****
 VPC-A-Cloud (10.0.0.0/16)          VPC-B-OnPrem (192.168.0.0/16)
 ┌─────────────────────┐            ┌─────────────────────┐
