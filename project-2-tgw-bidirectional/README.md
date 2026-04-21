@@ -114,16 +114,16 @@ server.listen(3000, '0.0.0.0', () => {
 ## Screenshots
 | # | Screenshot | Description |
 |---|-----------|-------------|
-| 01 | ![Both VPCs](screenshots/01-both-vpcs-created.png) | Both VPCs created |
-| 02 | ![TGW Available](screenshots/02-tgw-available.png) | Transit Gateway available |
-| 03 | ![Attachments](screenshots/03-both-attachments-available.png) | Both attachments available |
-| 04 | ![Route Tables](screenshots/04-route-tables-configured.png) | Route tables configured |
-| 05 | ![EC2s Running](screenshots/05-both-ec2-running.png) | Both EC2s running |
-| 06 | ![Node EC2-B](screenshots/06-nodejs-running-ec2b.png) | Node.js running on EC2-B |
-| 07 | ![Curl A to B](screenshots/07-curl-ec2a-to-ec2b.png) | EC2-A curl to EC2-B app |
-| 08 | ![Node EC2-A](screenshots/08-nodejs-running-ec2a.png) | Node.js running on EC2-A |
-| 09 | ![Curl B to A](screenshots/09-curl-ec2b-to-ec2a.png) | EC2-B curl to EC2-A app |
-| 10 | ![Both Working](screenshots/10-both-directions-working.png) | Both directions confirmed |
+| 01 Both VPCs created |
+| 02  Transit Gateway available |
+| 03  Both attachments available |
+| 04 |  Route tables configured |
+| 05 || Both EC2s running |
+| 06 |  Node.js running on EC2-B |
+| 07 |  EC2-A curl to EC2-B app |
+| 08 |  | Node.js running on EC2-A |
+| 09  | EC2-B curl to EC2-A app |
+| 10 || Both directions confirmed |
 
 ## Cleanup
 Resources deleted after project completion:
